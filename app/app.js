@@ -40,56 +40,54 @@ app.post('/api/gifts', (request, response) => {
     });
 });
 
+
 /**
 * @param {Object} input     The request to the Conversation
 * @param {Object} response  The response from the bot
 * @return {Object}          The response with the updated message
 */
-function updateMessage(input, response) {
-  let responseText = null;
-  if (!response.output) {
-    response.output = {};
+function updateMessage(input, res) {
+  let resText = null;
+
+  if (!res.output) {
+    res.output = {};
   } else {
-
-    if (response.intents && response.intents[0]) {
-      let intent = response.intents[0];
-
-      if (intent.intent === 'find_gift') { // FIXME: When in a deper node this isn't set
-        console.log('do a thing!')
-        searchEBay([]) // TODO: Dynamically get this from the conversation data
-      }
+    console.log(res);
+    if (res.context.interests) {
+      searchEBay(res.context)
     }
-
-
-    return response;
+    return res;
   }
 }
 
 
 /**
-* @param {Array} keywordArray // An array of possible keywords
-* @return {?} // TODO: what shold this return?
+* @param {Object} contextObject
+* @return {?} // TODO: what should this return?
 */
-
-function searchEBay(keywordArray) {
-
+function searchEBay(contextObject) {
   let sandboxEndpoint = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1';
+  const co = contextObject;
 
-  // TODO for loop of keyword array here!
-  // ${process.env.EBAY_APP_ID}
-
+  // FIXME: Why does this not return values?
+  // let keywords = `${co.occasion} ${co.interests} ${co.person}`;
+  let keywords = `${co.interests}`;
   let url = sandboxEndpoint + '?';
   url += 'OPERATION-NAME=findItemsByKeywords';
   url += `&SECURITY-APPNAME=${process.env.EBAY_APP_ID}`;
   url += '&RESPONSE-DATA-FORMAT=JSON';
-  url += '&keywords=harry%20potter'; // TODO Dynamic!
+  url += `&keywords=${keywords}`;
   url += '&paginationInput.entriesPerPage=3';
 
   // Make the request
   request(url, { json: true }, (err, res, body) => {
     if (err) { return console.log(err); }
-    console.log(res.body);
-    console.log(body);
+
+    let items = body.findItemsByKeywordsResponse[0].searchResult[0].item
+    if (items) {
+      items = items[0];
+    }
+    console.log(items);
   });
 }
 
