@@ -13,13 +13,13 @@ let conversation = new Conversation({
   'version_date': '2017-11-17', // TODO: Figure out why they have me do this
 });
 
-app.post('/api/gifts', (request, response) => {
+app.post('/api/gifts', (req, res) => {
 
   let workspace = process.env.WORKSPACE_ID || 'no-id';
 
   // Require a workspace ID
   if (!workspace || workspace === 'no-id') {
-    return response.json({
+    return res.json({
       'output': {
         'text': 'No Workspace ID found.',
       },
@@ -28,15 +28,15 @@ app.post('/api/gifts', (request, response) => {
 
   let payload = {
     workspace_id: workspace,
-    context: request.body.context || {},
-    input: request.body.input || {},
+    context: req.body.context || {},
+    input: req.body.input || {},
   };
 
   conversation.message(payload, function(err, data) {
       if (err) {
-        return response.status(err.code || 500).json(err);
+        return res.status(err.code || 500).json(err);
       }
-      return response.json(updateMessage(payload, data));
+      return res.json(updateMessage(payload, data));
     });
 });
 
