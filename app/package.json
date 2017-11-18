@@ -10,8 +10,12 @@
     "request": "^2.83.0",
     "watson-developer-cloud": "^2.42.0"
   },
-  "devDependencies": {},
-  "scripts": {},
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "scripts": {
+    "develop": "nodemon server.js"
+  },
   "author": "Peter Ramsing",
   "license": "MIT",
   "private": true
