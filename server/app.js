@@ -96,4 +96,35 @@ function searchEBay(contextObject) {
 }
 
 
+app.post('/api/email', (req, res) => {
+  let emailAddress = req.body.emailAddress || '';
+  let links = req.body.links || [];
+  let messageHTML = '';
+
+  if (links.length < 1) {
+    return res.json('')
+  }
+
+  messageHTML += '<ul>';
+  for (var i = 0; i < links.length; i++) {
+    messageHTML += `<li><a href="${links[i].link}">${links[i].title}</a></li>`;
+  }
+  messageHTML += '</ul>';
+  messageHTML += '<br/> - From, <br/> You!'
+
+  const sgMail = require('@sendgrid/mail');
+  sgMail.setApiKey(process.env.SENDGRID_KEY);
+  const msg = {
+    to: emailAddress,
+    from: 'giftfinder@peterramsing.com',
+    subject: 'Gift Finder Suggestions',
+    html: messageHTML,
+  };
+
+  sgMail.send(msg).then(() => {
+    return res.json('');
+  });
+});
+
+
 module.exports = app;
