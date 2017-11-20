@@ -52,18 +52,26 @@ function updateMessage(input, res) {
   if (!res.output) {
     res.output = {};
   } else {
-    console.log(res);
-    if (res.context.interests) {
-      searchEBay(res.context)
-    }
     return res;
   }
 }
 
 
+app.post('/api/ebay', (req, res) => {
+
+  let contextObject = req.body || {};
+  let returnableItems;
+  let foo = searchEBay(contextObject).then((eBayResponse) => {
+    let items = eBayResponse.findItemsByKeywordsResponse[0].searchResult[0].item
+    returnableItems = items;
+  });
+
+  Promise.all([foo]).then(() => res.json(returnableItems))
+});
+
 /**
-* @param {Object} contextObject
-* @return {?} // TODO: what should this return?
+* @param {Object} contextObject The context object from Watson
+* @return {Object}              The objects returned by eBay
 */
 function searchEBay(contextObject) {
   let sandboxEndpoint = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1';
@@ -80,14 +88,10 @@ function searchEBay(contextObject) {
   url += '&paginationInput.entriesPerPage=3';
 
   // Make the request
-  request(url, { json: true }, (err, res, body) => {
-    if (err) { return console.log(err); }
-
-    let items = body.findItemsByKeywordsResponse[0].searchResult[0].item
-    if (items) {
-      items = items[0];
-    }
-    console.log(items);
+  return request({
+    'method': 'GET',
+    'uri': url,
+    'json': true,
   });
 }
 
