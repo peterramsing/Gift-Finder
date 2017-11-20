@@ -51,8 +51,6 @@ export class ConversationPanelComponent implements OnInit {
         if (data.context.interests) {
           this._searchEBay(data.context);
         }
-
-        console.log(data);
       });
 
     this.messageValue = null; // Resets the text field.
