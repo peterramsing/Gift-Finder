@@ -1,5 +1,16 @@
-<p>
-  conversation-panel works!
-</p>
+<!-- TODO: Componentize this -->
+<section class="ConversationList">
+  <span *ngFor="let message of messageLog"
+        [ngClass]="message.author"
+        class="ConversationList-Message">
+    {{ message.text}}
+  </span>
+</section>
 
-test
+<section class="ConversationForm">
+  <input [value]="messageValue"
+         (input)="messageValue = $event.target.value"
+         (keyup.enter)="submitMessage()"
+         type="text" placeholder="Type something">
+
+</section>
