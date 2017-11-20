@@ -1,6 +1,8 @@
 ## Gift Finder
 #### A spike for a Watson Bot
 
+[See it in Action](https://gift-finder.peterramsing.net)
+
 ## Tech Used:
 * Digital Ocean Droplet
 * SSL from Let's Encrypt
