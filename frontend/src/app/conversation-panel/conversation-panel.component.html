@@ -1,4 +1,3 @@
-<!-- TODO: Componentize this -->
 <section class="ConversationList">
   <span *ngFor="let message of messageLog"
         [ngClass]="message.author"
@@ -12,5 +11,6 @@
          (input)="messageValue = $event.target.value"
          (keyup.enter)="submitMessage()"
          type="text" placeholder="Type something">
-
 </section>
+
+<app-ebay-listings [listings]="eBayListings"></app-ebay-listings>

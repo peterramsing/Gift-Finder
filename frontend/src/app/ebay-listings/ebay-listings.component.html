@@ -1,0 +1,10 @@
+<div class="Listings" *ngIf="listings.length > 0">
+  <div class="Listing" *ngFor="let listing of listings">
+    <h3>{{ listing.title }}</h3>
+
+    <img src="{{ listing.galleryURL }}" alt="{{ listing.title }}">
+
+    <a target="_blank" href="{{ listing.viewItemURL}}">View Item</a>
+
+  </div>
+</div>

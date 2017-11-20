@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { EbayService } from './../core/ebay.service';
 import { WatsonService } from './../core/watson.service';
 
 @Component({
@@ -8,12 +9,15 @@ import { WatsonService } from './../core/watson.service';
   styleUrls: ['./conversation-panel.component.css']
 })
 export class ConversationPanelComponent implements OnInit {
+  eBayListings: Array<any>;
   messageValue: string;
   messageLog: Array<any>;
 
   constructor(
-    private WS: WatsonService,
+    private _ES: EbayService,
+    private _WS: WatsonService,
   ) {
+    this.eBayListings = [];
     this.messageLog = [];
     this.messageValue = '';
     this.submitMessage(); // Initial call on load to start the conversation
@@ -22,19 +26,35 @@ export class ConversationPanelComponent implements OnInit {
   ngOnInit() {
   }
 
+  _searchEBay(context) {
+    console.log('searching ebay', context)
+    this._ES.searchEBayRequest(context)
+      .subscribe((data:any) => {
+        this.eBayListings = data
+        // TODO: Submit another Watson Request to trigger emailing these
+        // when implementing the email/text service
+      });
+  }
 
   submitMessage() {
     this.messageLog.push({
       'text': this.messageValue,
       'author': 'user',
     });
-    this.WS.sendGiftsRequest(this.messageValue)
+    this._WS.sendGiftsRequest(this.messageValue)
       .subscribe((data: any) => {
         this.messageLog.push({
           'text': data.output.text,
           'author': 'bot',
         });
+
+        if (data.context.interests) {
+          this._searchEBay(data.context);
+        }
+
+        console.log(data);
       });
+
     this.messageValue = null; // Resets the text field.
   }
 }
