@@ -8,4 +8,15 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
+/* Utilities */
+.u-TextCenter {
+  text-align: center!important;
+}
 
+.u-TextShrink-1 {
+  font-size: 0.8rem;
+}
+
+.u-PaddingTop-1 {
+  padding-top: 0.5rem;
+}

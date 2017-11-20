@@ -1,10 +1,10 @@
 <div class="Listings" *ngIf="listings.length > 0">
   <div class="Listing" *ngFor="let listing of listings">
-    <h3>{{ listing.title }}</h3>
+    <h3>{{ listing.title }} <br/><span class="u-TextShrink-1">{{ listing.sellingStatus[0].currentPrice[0]['__value__'] | currency:listing.sellingStatus[0].currentPrice['@currencyID']:'code' }}</span></h3>
 
-    <img src="{{ listing.galleryURL }}" alt="{{ listing.title }}">
+    <img class="Listing-Image" src="{{ listing.galleryURL }}" alt="{{ listing.title }}">
 
-    <a target="_blank" href="{{ listing.viewItemURL}}">View Item</a>
+    <a class="u-TextCenter u-PaddingTop-1" target="_blank" href="{{ listing.viewItemURL}}">View Item</a>
 
   </div>
 </div>
