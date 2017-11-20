@@ -1,6 +1,7 @@
 <div class="BotContainer">
   <div class="ConversationContainer">
-    <section class="ConversationList">
+    <section class="ConversationList" id="js-ConversationList"
+             [ngClass]="{'results-present': resultsPresent}">
       <span *ngFor="let message of messageLog"
             [ngClass]="message.author"
             class="ConversationList-Message">
