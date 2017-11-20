@@ -34,7 +34,7 @@ export class ConversationPanelComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.convoListElement = document.querySelector("#js-ConversationList")
+    this.convoListElement = document.querySelector('#js-ConversationList');
   }
 
   _scrollTop() {
@@ -48,7 +48,7 @@ export class ConversationPanelComponent implements OnInit, AfterViewInit {
 
   _searchEBay(context) {
     this._ES.searchEBayRequest(context)
-      .subscribe((data:any) => {
+      .subscribe((data: any) => {
         this.eBayListings = data;
         this.resultsPresent = true;
       });
@@ -66,12 +66,12 @@ export class ConversationPanelComponent implements OnInit, AfterViewInit {
         'text': this.messageValue,
         'author': 'user',
       });
-      let isEmail = this.messageValue
+      const isEmail = this.messageValue
         .match('.*[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*.*');
       if (isEmail && this.resultsPresent) {
         this._sendEmail(this.messageValue, this.eBayListings);
-        this._clearInput()
-        return
+        this._clearInput();
+        return;
       }
     }
 
@@ -88,24 +88,24 @@ export class ConversationPanelComponent implements OnInit, AfterViewInit {
         }
       });
 
-    this._clearInput()
+    this._clearInput();
   }
 
 
   // TODO: Make this a service of its own
   _sendEmail(emailAddress, eBayListings) {
     const url = environment.apiURL + 'email/';
-    let eBayURLS = [];
-    for (var i = 0; i < eBayListings.length; i++) {
+    const eBayURLS = [];
+    for (let i = 0; i < eBayListings.length; i++) {
       eBayURLS.push({
         'link': eBayListings[i].viewItemURL,
         'title': eBayListings[i].title,
       });
     }
-    let emailPayload = {
+    const emailPayload = {
       'emailAddress': emailAddress,
       'links': eBayURLS,
-    }
+    };
 
     return this.http.post(url, emailPayload).toPromise()
       .then(() => {

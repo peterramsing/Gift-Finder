@@ -19,12 +19,9 @@ export class EbayService {
   searchEBayRequest(contextObject: object) {
     const url = environment.apiURL + 'ebay/';
 
-    console.log('in search service', contextObject)
-
     return this.http
       .post(url, contextObject)
       .map((res: any) => {
-        console.log('response', res)
         return res;
       });
   }
