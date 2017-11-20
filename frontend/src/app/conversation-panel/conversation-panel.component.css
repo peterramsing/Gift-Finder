@@ -1,0 +1,60 @@
+.ConversationList {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
+  height: 40vh;
+  overflow: scroll;
+}
+
+.ConversationList::after {
+  display: block;
+  content: '';
+  clear: both;
+}
+
+.ConversationList-Message {
+  display: block;
+  margin: 0.4rem 0.3rem;
+  padding: 0.3rem;
+  border-radius: 5px;
+  max-width: 90%;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+}
+
+.ConversationList-Message::after {
+  display: block;
+  content: '';
+  clear: both;
+}
+
+.ConversationList-Message.bot {
+  align-self: flex-start;
+  text-align: left;
+  background-color: lightgrey;
+  color: #0b0b0b;
+}
+
+.ConversationList-Message.user {
+  align-self: flex-end;
+  text-align: right;
+  background-color: #3C6997;
+  color: #fefefe;
+}
+
+
+.ConversationForm {
+  padding: 5px;
+}
+
+.ConversationForm-Input {
+  width: 100%;
+  resize: none;
+  box-sizing: border-box;
+  padding: 4px;
+  padding-left: 10px;
+  min-height: 1.7rem;
+  border: 2px solid darkgrey;
+  border-radius: 1rem;
+  outline: none;
+}

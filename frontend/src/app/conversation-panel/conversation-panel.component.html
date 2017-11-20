@@ -7,10 +7,13 @@
 </section>
 
 <section class="ConversationForm">
+  <!-- FIXME: Make this a textarea -->
   <input [value]="messageValue"
          (input)="messageValue = $event.target.value"
          (keyup.enter)="submitMessage()"
-         type="text" placeholder="Type something">
+         type="text" placeholder="Type something"
+         class="ConversationForm-Input"
+         autofocus="true">
 </section>
 
 <app-ebay-listings [listings]="eBayListings"></app-ebay-listings>
