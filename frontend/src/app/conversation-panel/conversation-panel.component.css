@@ -26,22 +26,22 @@
   }
 }
 
-
 .ConversationList {
   display: flex;
   flex-direction: column;
   margin: 0.5rem 0;
-  height: 90vh;
+  height: 220px;
   overflow: scroll;
 }
 
+.ConversationList.results-present {
+  height: 180px;
+}
 
-@media (max-width: 799px) {
-  .ConversationList {
-    height: 40vh;
-  }
+@media (min-width: 800px) {
+  .ConversationList,
   .ConversationList.results-present {
-    height: 20vh;
+    height: 90vh;
   }
 }
 
