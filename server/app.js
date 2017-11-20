@@ -1,3 +1,5 @@
+const querystring = require('querystring');
+
 const express = require('express'); // 'cause all the cool kids are doing it
 const bodyParser = require('body-parser'); // The Post must go somewhere 📬
 const Conversation = require('watson-developer-cloud/conversation/v1'); // Dr. Watson I presume
@@ -80,14 +82,15 @@ function searchEBay(contextObject) {
   // FIXME: Why does this not return values?
   // let keywords = `${co.occasion} ${co.interests} ${co.person}`;
   let keywords = `${co.interests}`;
-  let url = sandboxEndpoint + '?';
-  url += 'OPERATION-NAME=findItemsByKeywords';
-  url += `&SECURITY-APPNAME=${process.env.EBAY_APP_ID}`;
-  url += '&RESPONSE-DATA-FORMAT=JSON';
-  url += `&keywords=${keywords}`;
-  url += '&paginationInput.entriesPerPage=3';
-
-  // Make the request
+  let queryObject = {
+    'OPERATION-NAME': 'findItemsByKeywords',
+    'SECURITY-APPNAME': process.env.EBAY_APP_ID,
+    'RESPONSE-DATA-FORMAT': 'JSON',
+    'keywords': keywords,
+    'paginationInput.entriesPerPage': 3, // TODO: Frontend should set this
+  }
+  let query = querystring.stringify(queryObject, '&', '=');
+  let url = endpoint + '?' + query;
   return request({
     'method': 'GET',
     'uri': url,
