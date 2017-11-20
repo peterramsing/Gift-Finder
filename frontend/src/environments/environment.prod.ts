@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serverBaseURL: 'https://gift-finder.peterramsing.net/api/',
+  apiURL: 'https://gift-finder.peterramsing.net/api/',
 };
