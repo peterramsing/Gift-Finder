@@ -6,7 +6,7 @@ const request = require('request-promise');
 const app = express();
 
 // Boot 'er up!
-app.use(express.static('./public'));
+app.use(express.static('./../frontend/dist')); // links to Angular
 app.use(bodyParser.json());
 
 let conversation = new Conversation({
