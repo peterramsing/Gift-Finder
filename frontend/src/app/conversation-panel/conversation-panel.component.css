@@ -1,9 +1,48 @@
+@media (min-width: 400px) {
+  .ConversationContainer,
+  .EBayListingsContainer {
+    width: 380px;
+    margin-left: 10px;
+  }
+}
+
+@media (min-width: 800px) {
+  .BotContainer {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ConversationContainer,
+  .EBayListingsContainer {
+    width: 380px;
+  }
+
+  .ConversationContainer {
+    float: left;
+  }
+
+  .EBayListingsContainer {
+    float: right;
+  }
+}
+
+
 .ConversationList {
   display: flex;
   flex-direction: column;
   margin: 0.5rem 0;
-  height: 40vh;
+  height: 90vh;
   overflow: scroll;
+}
+
+
+@media (max-width: 799px) {
+  .ConversationList {
+    height: 40vh;
+  }
+  .ConversationList.results-present {
+    height: 20vh;
+  }
 }
 
 .ConversationList::after {

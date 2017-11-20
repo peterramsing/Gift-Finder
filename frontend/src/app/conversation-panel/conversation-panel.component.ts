@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { EbayService } from './../core/ebay.service';
 import { WatsonService } from './../core/watson.service';
@@ -8,10 +8,12 @@ import { WatsonService } from './../core/watson.service';
   templateUrl: './conversation-panel.component.html',
   styleUrls: ['./conversation-panel.component.css']
 })
-export class ConversationPanelComponent implements OnInit {
+export class ConversationPanelComponent implements OnInit, AfterViewInit {
+  convoListElement: any;
   eBayListings: Array<any>;
   messageValue: string;
   messageLog: Array<any>;
+  resultsPresent: Boolean;
 
   constructor(
     private _ES: EbayService,
@@ -49,6 +51,7 @@ export class ConversationPanelComponent implements OnInit {
           'text': data.output.text,
           'author': 'bot',
         });
+        this._scrollTop();
 
         if (data.context.interests) {
           this._searchEBay(data.context);

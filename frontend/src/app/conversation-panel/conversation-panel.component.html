@@ -1,19 +1,25 @@
-<section class="ConversationList">
-  <span *ngFor="let message of messageLog"
-        [ngClass]="message.author"
-        class="ConversationList-Message">
-    {{ message.text}}
-  </span>
-</section>
+<div class="BotContainer">
+  <div class="ConversationContainer">
+    <section class="ConversationList">
+      <span *ngFor="let message of messageLog"
+            [ngClass]="message.author"
+            class="ConversationList-Message">
+        {{ message.text}}
+      </span>
+    </section>
 
-<section class="ConversationForm">
-  <!-- FIXME: Make this a textarea -->
-  <input [value]="messageValue"
-         (input)="messageValue = $event.target.value"
-         (keyup.enter)="submitMessage()"
-         type="text" placeholder="Type something"
-         class="ConversationForm-Input"
-         autofocus="true">
-</section>
+    <section class="ConversationForm">
+      <!-- FIXME: Make this a textarea -->
+      <input [value]="messageValue"
+             (input)="messageValue = $event.target.value"
+             (keyup.enter)="submitMessage()"
+             type="text" placeholder="Type here..."
+             class="ConversationForm-Input"
+             autofocus="true">
+    </section>
+  </div>
 
-<app-ebay-listings [listings]="eBayListings"></app-ebay-listings>
+  <app-ebay-listings [listings]="eBayListings"
+                      class="EBayListingsContainer">
+  </app-ebay-listings>
+</div>
