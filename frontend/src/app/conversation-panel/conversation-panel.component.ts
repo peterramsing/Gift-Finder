@@ -37,10 +37,12 @@ export class ConversationPanelComponent implements OnInit {
   }
 
   submitMessage() {
-    this.messageLog.push({
-      'text': this.messageValue,
-      'author': 'user',
-    });
+    if (this.messageValue) {
+      this.messageLog.push({
+        'text': this.messageValue,
+        'author': 'user',
+      });
+    }
     this._WS.sendGiftsRequest(this.messageValue)
       .subscribe((data: any) => {
         this.messageLog.push({
