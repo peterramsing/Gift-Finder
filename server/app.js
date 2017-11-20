@@ -74,7 +74,7 @@ app.post('/api/ebay', (req, res) => {
 * @return {Object}              The objects returned by eBay
 */
 function searchEBay(contextObject) {
-  let sandboxEndpoint = 'http://svcs.sandbox.ebay.com/services/search/FindingService/v1';
+  let endpoint = process.env.EBAY_ENDPOINT;
   const co = contextObject;
 
   // FIXME: Why does this not return values?
