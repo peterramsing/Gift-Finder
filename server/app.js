@@ -1,7 +1,7 @@
 const express = require('express'); // 'cause all the cool kids are doing it
 const bodyParser = require('body-parser'); // The Post must go somewhere 📬
 const Conversation = require('watson-developer-cloud/conversation/v1'); // Dr. Watson I presume
-const request = require('request');
+const request = require('request-promise');
 
 const app = express();
 
