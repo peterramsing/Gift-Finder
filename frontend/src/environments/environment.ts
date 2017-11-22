@@ -7,4 +7,5 @@ export const environment = {
   production: false,
   apiURL: 'http://localhost:3000/api/',
   gaTrackingId: 'UA-42582981-6',
+  version: 'development',
 };

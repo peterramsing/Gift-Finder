@@ -11,6 +11,6 @@ export class AppComponent {
   constructor(
     private _analytics: AnalyticsService,
   ) {
-    this._analytics.pageview('/');
+    this._analytics.pageview();
   }
 }

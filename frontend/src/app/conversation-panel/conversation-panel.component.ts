@@ -62,7 +62,7 @@ export class ConversationPanelComponent implements AfterViewInit {
     this._scrollTop();
 
     if (this.messageValue) {
-      this._analytics.event('Bot Form', 'Submit');
+      this._analytics.event('Bot Interaction', 'Bot Form', 'Submit');
       this.messageLog.push({
         'text': this.messageValue,
         'author': 'user',

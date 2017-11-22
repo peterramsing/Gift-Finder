@@ -1,28 +1,38 @@
 import { Injectable } from '@angular/core';
-
-import ua from 'universal-analytics';
 import { environment } from '../../environments/environment';
 
 
 @Injectable()
 export class AnalyticsService {
-  _ua: any;
 
   constructor() {
-    this._ua = ua(environment.gaTrackingId);
+    gtag('config', environment.gaTrackingId);
   }
 
-  pageview(page: string) {
-    this._ua.pageview(page).send();
+  pageview(
+    appId: string = null,
+    appInstallerId: string = null,
+  ) {
+    gtag('event', 'screen_view', {
+      'app_id': appId,
+      'app_version': environment.version,
+      'app_installer_id': appInstallerId,
+    });
   }
 
   event(
+    name:string,
     category: string = null,
     action: string = null,
     label: string = null,
-    value: number = null
+    value: number = null,
   ) {
-    this._ua.event(category, action, label, value).send();
+    gtag('event', name, {
+      'event_category': category,
+      'event_action': action,
+      'event_label': label,
+      'event_value': value,
+    });
   }
 
 }
