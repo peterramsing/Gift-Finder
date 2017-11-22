@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment';
   templateUrl: './conversation-panel.component.html',
   styleUrls: ['./conversation-panel.component.css']
 })
-export class ConversationPanelComponent implements OnInit, AfterViewInit {
+export class ConversationPanelComponent implements AfterViewInit {
   convoListElement: any;
   eBayListings: Array<any>;
   messageValue: string;
@@ -21,16 +21,13 @@ export class ConversationPanelComponent implements OnInit, AfterViewInit {
   constructor(
     private _ES: EbayService,
     private _WS: WatsonService,
-    private http: HttpClient,
+    private _http: HttpClient,
   ) {
     this.eBayListings = [];
     this.messageLog = [];
     this.messageValue = '';
     this.resultsPresent = false;
     this.submitMessage(); // Initial call on load to start the conversation
-  }
-
-  ngOnInit() {
   }
 
   ngAfterViewInit() {
@@ -40,6 +37,7 @@ export class ConversationPanelComponent implements OnInit, AfterViewInit {
   _scrollTop() {
     if (this.convoListElement) {
       // Using a timeout to ensure the render is complete... 😳
+      // FIXME: Tie into a callback here!
       setTimeout(() => {
         this.convoListElement.scrollTop = this.convoListElement.scrollHeight;
       }, 500);
@@ -107,7 +105,7 @@ export class ConversationPanelComponent implements OnInit, AfterViewInit {
       'links': eBayURLS,
     };
 
-    return this.http.post(url, emailPayload).toPromise()
+    return this._http.post(url, emailPayload).toPromise()
       .then(() => {
         // TODO: Actually do some validation here!
         this.messageLog.push({
