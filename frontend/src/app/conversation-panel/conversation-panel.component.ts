@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { AnalyticsService } from './../core/analytics.service';
 import { EbayService } from './../core/ebay.service';
 import { WatsonService } from './../core/watson.service';
 
@@ -19,6 +20,7 @@ export class ConversationPanelComponent implements AfterViewInit {
   resultsPresent: Boolean;
 
   constructor(
+    private _analytics: AnalyticsService,
     private _ES: EbayService,
     private _WS: WatsonService,
     private _http: HttpClient,
@@ -60,6 +62,7 @@ export class ConversationPanelComponent implements AfterViewInit {
     this._scrollTop();
 
     if (this.messageValue) {
+      this._analytics.event('Bot Form', 'Submit');
       this.messageLog.push({
         'text': this.messageValue,
         'author': 'user',
