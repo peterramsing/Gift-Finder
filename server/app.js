@@ -63,12 +63,12 @@ app.post('/api/ebay', (req, res) => {
 
   let contextObject = req.body || {};
   let returnableItems;
-  let foo = searchEBay(contextObject).then((eBayResponse) => {
+  let eBayPromise = searchEBay(contextObject).then((eBayResponse) => {
     let items = eBayResponse.findItemsByKeywordsResponse[0].searchResult[0].item
     returnableItems = items;
   });
 
-  Promise.all([foo]).then(() => res.json(returnableItems))
+  Promise.all([eBayPromise]).then(() => res.json(returnableItems))
 });
 
 /**
