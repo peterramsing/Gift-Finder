@@ -21,7 +21,7 @@ export class AnalyticsService {
   }
 
   event(
-    name:string,
+    name: string,
     category: string = null,
     action: string = null,
     label: string = null,
